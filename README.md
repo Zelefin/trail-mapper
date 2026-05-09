@@ -27,5 +27,3 @@ When you turn on the device it should connect to the GPS and log and store the c
 - Battery Li-Po 1000 mAh 3.7V
 - microSD card module
 - ESP32-wroom (chip ESP32, 4mb flash)
-
-
