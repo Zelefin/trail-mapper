@@ -1,0 +1,4 @@
+build/
+compile_commands.json
+sdkconfig.old
+managed_components/
