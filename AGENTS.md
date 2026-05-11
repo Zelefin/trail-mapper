@@ -9,14 +9,20 @@ The intended device records GPS coordinates while walking, stores logs locally, 
 later exports/parses them into formats usable by map tools such as Google Maps or
 OpenStreetMap.
 
+The current hardware integration plan lives in
+`docs/breadboard-prototype.md`. Read that document before assigning pins,
+changing peripheral behavior, or flashing hardware-facing firmware.
+
 Hardware noted so far:
 
 - ESP32-WROOM module, ESP32 chip, 4MB flash
 - NEO-6M GPS module GY-NEO6MV2
 - 0.96 inch SPI TFT display, 160x80 IPS RGB
 - microSD card module
-- 2 buttons
+- momentary record button
+- 1P2T power switch
 - 3 LEDs: red, yellow, green
+- KY-012 active buzzer
 - TP4056 Type-C Li-Po charger/protection module
 - MT3608 boost converter
 - 1000 mAh 3.7V Li-Po battery
