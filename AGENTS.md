@@ -150,15 +150,57 @@ Expected monitor baud:
 115200
 ```
 
-## Current Baseline App
+## Current Firmware
 
-The current basic firmware logs a heartbeat once per second:
+The current firmware is an integrated breadboard GPS logger, not a heartbeat
+demo. It has been tested with:
+
+- GPS input on UART2
+- microSD logging over SPI
+- ST7735-style 160x80 TFT over shared SPI
+- red/yellow/green LEDs
+- momentary record button
+- KY-012 active buzzer
+- battery-powered field test using a regulated 5V rail
+
+At boot the device shows a ready screen and waits without recording. Pressing
+the record button starts a session. Pressing the button again stops recording,
+flushes/closes files, unmounts the SD card, and returns to ready.
+
+Expected SD files:
 
 ```text
-I (...) trail-mapper: Hello, World! heartbeat=N
+trackNNN.csv
+trackNNN.nmea
+blackbox.log
 ```
 
-This has been built, flashed, and observed over `/dev/ttyUSB0`.
+`trackNNN.csv` contains parsed valid GPS fixes. `trackNNN.nmea` contains raw GPS
+sentences. `blackbox.log` is append-only diagnostic output intended for field
+debugging when USB serial is not connected.
+
+Known useful TFT calibration:
+
+```text
+TFT_X_OFFSET=0
+TFT_Y_OFFSET=24
+MADCTL=0x68
+```
+
+Current shared SPI wiring relies on separate chip-select lines and external
+10k pull-ups on both TFT CS and SD CS.
+
+## Power Notes
+
+For battery tests, use one regulated 5V rail:
+
+- 5V rail -> ESP32 `5V`/`VIN`
+- 5V rail -> SD module `VCC`
+- common GND across all modules
+- TFT on 3.3V
+
+Avoid plugging USB into the ESP32 while also feeding external 5V unless the
+board power path is known to be safe.
 
 ## Testing And Flashing Expectations
 
